@@ -1,3 +1,23 @@
-<p>
-  login works!
-</p>
+<div class="row">
+<div class="col-sm-4"></div>
+<div class="col-sm-4">
+	<form (submit)="onLoginSubmit()">
+	    <div class="form-group" >
+	        <label for="username">Username</label>
+	        <input type="text" placeholder="" class="form-control" [(ngModel)]="username" name="username" placeholder="Your username" />
+	    </div>
+	    <div class="form-group">
+	        <label for="password">Email</label>
+	        <input type="password" placeholder="" class="form-control" [(ngModel)]="password" name="password" placeholder="Your email address" />
+	    </div>
+	    
+	        <button class="btn btn-block btn-success btn-lg" type="submit" >Send Password</button>
+	        <button class="btn btn-block btn-warning btn-lg">Cancel</button>
+    </form>
+
+<div class="col-sm-4"></div>
+	
+</div>
+
+
+
