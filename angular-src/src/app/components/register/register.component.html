@@ -1,0 +1,55 @@
+<div id="container_demo" >
+	<!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+	<a class="hiddenanchor" id="toregister"></a>
+	<a class="hiddenanchor" id="tologin"></a>
+	<div id="wrapper">
+		<div class="row">
+			
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<div id="register" class="animate form">
+					<form  (submit)="onRegisterSubmit()" autocomplete="on"> 
+						<h1> Sign up </h1> 
+						<p> 
+							<label for="usernamesignup" class="name" data-icon="u">Your username</label>
+							<input id="namesignup" [(ngModel)]="name" style="float:right;" name="username" required="required" type="text" placeholder="username" />
+						</p>
+						<p> 
+							<label for="usernamesignup" class="uname" data-icon="u">Your username</label>
+							<input id="usernamesignup" [(ngModel)]="username" style="float:right;" name="username" required="required" type="text" placeholder="username" />
+						</p>
+						<p> 
+							<label for="emailsignup" class="youmail" data-icon="e" > Your email</label>
+							<input id="emailsignup" [(ngModel)]="email" style="float:right;"  name="email" required="required" type="email" placeholder="mail@domain.com"/> 
+						</p>
+						<p> 
+							<label for="passwordsignup" class="youpasswd" data-icon="p">Your password </label>
+							<input id="passwordsignup" [(ngModel)]="password" style="float:right;"  name="password" required="required" type="password" placeholder="password"/>
+						</p>
+						<p> 
+							<label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your password </label>
+							<input id="passwordsignup_confirm" [(ngModel)]="password1" style="float:right;"  name="passwordsignup_confirm" required="required" type="password" placeholder="confirm password"/>
+						</p>
+						<div class="row">
+							<div class="col-sm-4"></div>
+							<div class="col-sm-4">
+									<p class="signin button" > 
+										<input type="submit" value="Sign up"/> 
+									</p>
+									
+							</div>
+							<div class="col-sm-4"></div>
+						</div>
+						<p class="change_link">  
+							Already a member ?
+							<a href="#tologin" class="to_register"> Go and log in </a>
+						</p>
+						
+					</form>
+				</div>
+			</div>
+			<div class="col-sm-4"></div>
+
+		</div>
+	</div>
+</div> 
