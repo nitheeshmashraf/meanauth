@@ -58,6 +58,12 @@ app.get('/',(req,res)=>{
 	res.send("Invalid END point");
 });
 
+// other routes
+app.get('*',(req,res)=>{
+	res.sendFile(path.join(__dirname,'public/index.html'));
+});
+
+
 // listening to server
 app.listen(port,()=>{
 	console.log("Server started on port:"+port);
