@@ -7,7 +7,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 export class AuthService {
 	authToken:any;
 	user: any;
-    const token =localStorage.getItem('id_token');
+  // token =localStorage.getItem('id_token');
   
 
   constructor( private http:Http) {  }
@@ -48,8 +48,8 @@ export class AuthService {
   }
 
   loggedIn(){
-    console.log(tokenNotExpired());
-   // return tokenNotExpired();
+    // console.log(tokenNotExpired('id_token'));
+   return tokenNotExpired('id_token');
    
   //   if(localStorage.getItem('id_token'))
   //   return true;

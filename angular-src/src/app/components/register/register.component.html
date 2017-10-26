@@ -1,6 +1,7 @@
-<div id="container_demo" >
+
+<!-- <div id="container_demo" > -->
 	<!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
-	<a class="hiddenanchor" id="toregister"></a>
+	<!-- <a class="hiddenanchor" id="toregister"></a>
 	<a class="hiddenanchor" id="tologin"></a>
 	<div id="wrapper">
 		<div class="row">
@@ -11,8 +12,8 @@
 					<form  (submit)="onRegisterSubmit()" autocomplete="on"> 
 						<h1> Sign up </h1> 
 						<p> 
-							<label for="usernamesignup" class="name" data-icon="u">Your username</label>
-							<input id="namesignup" [(ngModel)]="name" style="float:right;" name="username" required="required" type="text" placeholder="username" />
+							<label for="usernamesignup" class="name" data-icon="u">Name</label>
+							<input id="namesignup" [(ngModel)]="name" style="float:right;" name="username" required="required" type="text" placeholder="name" />
 						</p>
 						<p> 
 							<label for="usernamesignup" class="uname" data-icon="u">Your username</label>
@@ -42,14 +43,63 @@
 						</div>
 						<p class="change_link">  
 							Already a member ?
-							<a href="#tologin" class="to_register"> Go and log in </a>
+							<a [routerLink]="['/login']" class="to_register"> Go and log in </a>
 						</p>
 						
 					</form>
 				</div>
+
+
+
 			</div>
 			<div class="col-sm-4"></div>
 
 		</div>
 	</div>
-</div> 
+</div>  -->
+
+<div class="container">
+        <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+        	<div class="panel panel-default">
+        		<div class="panel-heading" style="background-color: #f4760d">
+			    		<h3 class="panel-title" style="text-align: center; background-color: #f4760d">Registration</h3>
+			 			</div>
+			 			<div class="panel-body" style="text-align: center; padding: 40px 20px 40px 20px;">
+			 				<form role="form" (submit)="onRegisterSubmit()">
+			 				<div class="form-group">
+			    				<input type="text" name="name" id="name" class="form-control input-sm" placeholder="name" [(ngModel)]="name" >
+			    			</div>
+
+						<div class="form-group">
+			    				<input type="text" name="username" id="username" class="form-control input-sm" placeholder="username" [(ngModel)]="username" >
+			    			</div>
+
+			    		<div class="form-group">
+			    				<input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" [(ngModel)]="email" >
+			    			</div>
+
+			    		
+			    			<div class="row">
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			                <input type="password" [(ngModel)]="password" name="password" id="password" class="form-control input-sm" placeholder="password">
+			    					</div>
+			    				</div>
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			    						<input type="password" [(ngModel)]="password1" name="password1" id="password1" class="form-control input-sm" placeholder="confirm password">
+			    					</div>
+			    				</div>
+			    			</div>
+
+			    			
+
+	    			    <input type="submit" value="Register" class="btn btn-info btn-block">
+			    		
+			    		</form>
+			    	</div>
+	    		</div>
+    		</div>
+    	</div>
+    </div>
