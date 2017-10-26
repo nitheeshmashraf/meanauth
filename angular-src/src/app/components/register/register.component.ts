@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ValidateService } from '../../services/validate.service'
-import { AuthService } from '../../services/auth.service'
-import { Router } from '@angular/router'
+import { ValidateService } from '../../services/validate.service';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
+
+
 
 
 @Component({
@@ -17,7 +20,7 @@ export class RegisterComponent implements OnInit {
 	password:string;
 	password1:string;
 
-  constructor( private validateService: ValidateService, private authService: AuthService, private router: Router) {
+  constructor( private validateService: ValidateService, private authService: AuthService, private router: Router, private flashMessages: FlashMessagesService) {
   	 
    }
 
@@ -50,10 +53,12 @@ export class RegisterComponent implements OnInit {
         // register user
         this.authService.registerUser(user).subscribe(data =>{
               if(data.success){
-                alert("Registration successfull");
+                // alert("Registration successfull");
+                this.flashMessages.show("Registration successfull", { cssClass: 'alert-success' , timeout: 3000 }); 
                 this.router.navigate(['/login']);
               }else{
-                alert("Registration unsuccessfull");
+                // alert("Registration unsuccessfull");
+                this.flashMessages.show("Registration unsuccessfull", { cssClass: 'alert-danger' , timeout: 3000 }); 
                 this.router.navigate(['/register']);
 
               }
