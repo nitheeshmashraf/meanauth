@@ -17,6 +17,7 @@ import { AuthService } from './services/auth.service';
 
 import { AuthGuard } from './guards/auth.guard';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { tokenNotExpired } from 'angular2-jwt';
 
 
@@ -43,6 +44,7 @@ const appRoutes: Routes= [
     FormsModule,
     HttpModule,
     FlashMessagesModule,
+    NgxQRCodeModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ValidateService, AuthService, AuthGuard],

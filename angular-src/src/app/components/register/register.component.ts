@@ -20,6 +20,9 @@ export class RegisterComponent implements OnInit {
 	password:string;
 	password1:string;
 
+  elementType : 'url' | 'canvas' | 'img' = 'url';
+  value : string = 'http://localhost:4200/login';
+
   constructor( private validateService: ValidateService, private authService: AuthService, private router: Router, private flashMessages: FlashMessagesService) {
   	 
    }
