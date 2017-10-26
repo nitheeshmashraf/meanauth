@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
-// import { tokenNotExpired } from 'angular2-jwt';
+import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
 	authToken:any;
 	user: any;
+    const token =localStorage.getItem('id_token');
+  
 
   constructor( private http:Http) {  }
 
@@ -46,11 +48,13 @@ export class AuthService {
   }
 
   loggedIn(){
-    if(localStorage.getItem('id_token'))
-    return true;
-  else
-    return false;
+    console.log(tokenNotExpired());
    // return tokenNotExpired();
+   
+  //   if(localStorage.getItem('id_token'))
+  //   return true;
+  // else
+  //   return false;
   }
 
 	logout(){

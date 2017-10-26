@@ -16,6 +16,8 @@ import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 
 import { AuthGuard } from './guards/auth.guard';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { tokenNotExpired } from 'angular2-jwt';
 
 
 const appRoutes: Routes= [
@@ -40,6 +42,7 @@ const appRoutes: Routes= [
     BrowserModule,
     FormsModule,
     HttpModule,
+    FlashMessagesModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ValidateService, AuthService, AuthGuard],

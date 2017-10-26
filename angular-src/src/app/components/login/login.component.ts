@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
 	username: string;
 	password: string;
 
-  constructor( private authService: AuthService, private router: Router) { }
+  constructor( private authService: AuthService, private router: Router, private flashMessages: FlashMessagesService) { }
 
   onLoginSubmit(){
   	console.log(this.username);
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
   			this.router.navigate(['/dashboard']);
 
   		}else{
-  			alert(data.msg);
+        this.flashMessages.show(data.msg, { cssClass: 'alert-success' , timeout: 3000 });
+  			// alert(data.msg);
   			this.router.navigate(['/login']);
   		}
   	});
