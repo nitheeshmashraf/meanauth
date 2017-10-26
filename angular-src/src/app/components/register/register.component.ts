@@ -40,13 +40,15 @@ export class RegisterComponent implements OnInit {
 
         // required fields
         if(!this.validateService.validateRegister(user)){
-          console.log("please fill in all the fields");
+          // console.log("please fill in all the fields");
+          this.flashMessages.show("please fill in all the fields", { cssClass: 'alert-danger' , timeout: 3000 });
           return false;
         }
 
         // required email
         if(!this.validateService.ValidateEmail(user.email)){
-          console.log("please use valid email");
+          // console.log("please use valid email");
+          this.flashMessages.show("please use valid email", { cssClass: 'alert-danger' , timeout: 3000 }); 
           return false;
         }
 
@@ -66,7 +68,9 @@ export class RegisterComponent implements OnInit {
           );
 
 
-  	}
+  	}else{
+      this.flashMessages.show("Passwords are different!!", { cssClass: 'alert-danger' , timeout: 3000 }); 
+    }
 
   
   	

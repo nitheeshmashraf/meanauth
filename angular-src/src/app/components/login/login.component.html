@@ -1,7 +1,32 @@
 <div class="row">
-<div class="col-sm-4"></div>
+<div class="col-sm-8" style="margin: 0 auto 25px; margin-top: 50px;">
+	<div class="jumbotron text-center">
+	<h1>Costa App</h1>
+	<p class="lead">Customer service App</p>
+	<div *ngIf="authService.loggedIn()">
+		<a class="btn btn-primary" [routerLink]="['/register']">Register</a>
+		<a class="btn btn-default" [routerLink]="['/login']">Login</a>
+	</div>
+</div>
+<br>
+<div class="row" style="text-align: center">
+	<div class="col-sm-4">
+		<h3>Customer</h3>
+		<p>Walk into the an hotel as you own it.</p>
+	</div>
+	<div class="col-sm-4">
+		<h3>Service</h3>
+		<p>Your language Your Order.</p>
+	</div>
+	<div class="col-sm-4">
+		<h3>Acknowledgment</h3>
+		<p>Service at its maximum.</p>
+	</div>
+</div>
+</div>
+
 <div class="col-sm-4">
-	<form (submit)="onLoginSubmit()">
+	<!-- <form (submit)="onLoginSubmit()" id="loginForm">
 	    <div class="form-group" >
 	        <label for="username">Username</label>
 	        <input type="text" placeholder="" class="form-control" [(ngModel)]="username" name="username" placeholder="Your username" />
@@ -12,10 +37,34 @@
 	    </div>
 	    
 	        <button class="btn btn-block btn-success btn-lg" type="submit" >Send Password</button>
-	        <button class="btn btn-block btn-warning btn-lg">Cancel</button>
-    </form>
-
-<div class="col-sm-4"></div>
+	        
+    </form> -->
+    <!-- <div class="container"> -->
+        <div class="card card-container">
+            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin" (submit)="onLoginSubmit()">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="text" id="username" name="username" [(ngModel)]="username" class="form-control" placeholder="username" required autofocus>
+                <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" placeholder="password" required>
+                <div id="remember" class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+            </form><!-- /form -->
+            <a href="#" class="forgot-password">
+                Forgot the password?
+            </a>
+        </div><!-- /card-container -->
+    <!-- </div>/container -->
+</div>
+   <!--  <br>
+    <button class="btn btn-block btn-warning btn-lg" (click)="clearprestine()">Cancel</button>
+ -->
+<!-- <div class="col-sm-4"></div> -->
 	
 </div>
 

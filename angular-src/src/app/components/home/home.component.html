@@ -1,23 +1,23 @@
 <div class="jumbotron text-center">
-	<h1>Mean App</h1>
-	<p class="lead">Angular mean app with Auth</p>
-	<div>
+	<h1>Costa App</h1>
+	<p class="lead">Customer service App</p>
+	<div *ngIf="!authService.loggedIn()">
 		<a class="btn btn-primary" [routerLink]="['/register']">Register</a>
 		<a class="btn btn-default" [routerLink]="['/login']">Login</a>
 	</div>
 </div>
 
-<div class="row">
+<div class="row" style="text-align: center">
 	<div class="col-sm-4">
-		<h3>Express Backend</h3>
-		<p>node express app</p>
+		<h3>Customer</h3>
+		<p>Walk into the an hotel as your native one.</p>
 	</div>
 	<div class="col-sm-4">
-		<h3>Angular CLI</h3>
-		<p>CLI compo, service etc.</p>
+		<h3>Service</h3>
+		<p>Your language Your Order.</p>
 	</div>
 	<div class="col-sm-4">
-		<h3>JWT Tokens</h3>
-		<p>authentication tokens</p>
+		<h3>Acknowledgment</h3>
+		<p>Service at its maximum</p>
 	</div>
 </div>

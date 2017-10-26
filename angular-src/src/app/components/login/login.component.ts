@@ -35,7 +35,12 @@ export class LoginComponent implements OnInit {
   	});
   }
 
- 
+ clearprestine(){
+
+  this.username=null;
+  this.password=null;
+
+ }
 
   ngOnInit() {
   }
