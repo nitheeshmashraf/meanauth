@@ -11,6 +11,18 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  PhoneNo: {
+    type: Number,
+    required: true
+  },
+  RegistrationNo: {
+    type: String,
+    required: true
+  },
+  RoomNo: {
+    type: String,
+    required: true
+  },
   username: {
     type: String,
     required: true
@@ -21,11 +33,15 @@ const UserSchema = mongoose.Schema({
   }
 });
 
+
+
 const User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.getUserById = function(id, callback){
   User.findById(id, callback);
 }
+
+
 
 module.exports.getUserByUsername = function(username, callback){
   const query = {username: username}

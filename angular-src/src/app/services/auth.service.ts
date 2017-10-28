@@ -15,6 +15,7 @@ export class AuthService {
   registerUser(user){
   		let headers = new Headers;
   		headers.append('Content-Type','application/json');
+      // return this.http.post('users/register',user,{headers: headers})
   		return this.http.post('users/register',user,{headers: headers})
   		.map(res => res.json());
   	}
@@ -32,6 +33,24 @@ export class AuthService {
       headers.append('Content-Type','application/json');
       headers.append('Authorization',this.authToken);
       return this.http.get('users/profile',{headers: headers})
+      .map(res => res.json());
+  }
+
+  getOrders(){
+      let headers = new Headers;
+      this.loadToken();
+      headers.append('Content-Type','application/json');
+      headers.append('Authorization',this.authToken);
+      return this.http.get('users/getorders',{headers: headers})
+      .map(res => res.json());
+  }
+
+  getOptions(){
+      let headers = new Headers;
+      this.loadToken();
+      headers.append('Content-Type','application/json');
+      headers.append('Authorization',this.authToken);
+      return this.http.get('users/getoptions',{headers: headers})
       .map(res => res.json());
   }
 
