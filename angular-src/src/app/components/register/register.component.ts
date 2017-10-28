@@ -16,7 +16,10 @@ export class RegisterComponent implements OnInit {
 
 	name	:string;
 	username:string;
-	email	:string;
+  email  :string;
+  PhoneNo  :number;
+  RegistrationNo  :string;
+	RoomNo	:string;
 	password:string;
 	password1:string;
 
@@ -37,7 +40,10 @@ export class RegisterComponent implements OnInit {
 	  		name	:this.name,
 	  		username:this.username,
 	  		password:this.password,
-	  		email	:this.email
+	  		email	:this.email,
+        PhoneNo  :this.PhoneNo,
+        RegistrationNo  :this.RegistrationNo,
+        RoomNo  :this.RoomNo
   		}
 
 
