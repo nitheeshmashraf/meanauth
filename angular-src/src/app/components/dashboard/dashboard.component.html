@@ -1,41 +1,53 @@
-<div id="operations">
+<button (click)="showops()" *ngIf="mine" >Operations</button>
+<button (click)="showmine()" *ngIf="ops" >Mine</button>
+
+<div id="operations" [hidden]="!ops">
 	
 	<div class="row">
-		<div class="col-sm-12"><h1>Operations</h1></div>
+		<div class="col-sm-12"><h1>Cusines</h1></div>
 	</div>
 
-	<div class="row"  style="margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;">
-		<div class="col-sm-12"><h3>Order 1</h3></div>
+	<div (click)="intoitem(item.foption)" class="row" *ngFor="let item of operations" style="margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;">
+		<div class="col-sm-12"><h3>{{item.foption}}</h3></div>
 	</div>
 
-	<div class="row"  style="margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;">
-		<div class="col-sm-12"><h3>Order 2</h3></div>
-	</div>
+	
 
 </div>
 
+<div id="futhermore" [hidden]="!boptions">
+	<button (click)="outtofront(boption)">back</button>
+	<div class="row" *ngIf="boptions">
+		<div class="col-sm-12"><h1>{{boption}}</h1></div>
+	</div>
 
-<div id="orders">
+	<div class="row" *ngIf="boptions"  style="margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;">
+		<div class="col-sm-12"><h3>Further Options</h3></div>
+	</div>
+</div>
+
+
+<div id="orders" [hidden]="!mine">
 	
 	<div class="row">
 		<div class="col-sm-12"><h1>Your Orders</h1></div>
 	</div>
 
-	<!-- <div class="row" *ngIf="order"  style="margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;">
-		<div class="col-sm-12"><h3>{{order.count}}.{{order.orders}}</h3></div>
-	</div> -->
+	<div class="row"  *ngFor="let item of order" style="margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;">
+		<div class="col-sm-12"><h3>{{item.count}}.{{item.orders}}</h3></div>
+	</div>
 
 	<!-- <div class="row"  style="margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;">
 		<div class="col-sm-12"><h3>Order 2</h3></div>
 	</div> -->
 
 
-	<div *ngFor="let item of order">
+	<!-- <div *ngFor="let item of order">
 		<h2 class="page-header">order.{{item.count}}</h2>
 		<ul class="list-group">
 			<li class="list-group-item">count: {{item.count}}</li>
 			<li class="list-group-item">orders: {{item.orders}}</li>
 		</ul>
 	</div>
-
+ -->
 </div>

@@ -180,7 +180,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header\">Dashboard</h2>\n<p>Welcome</p>"
+module.exports = "<button (click)=\"showops()\" *ngIf=\"mine\" >Operations</button>\n<button (click)=\"showmine()\" *ngIf=\"ops\" >Mine</button>\n\n<div id=\"operations\" [hidden]=\"!ops\">\n\t\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12\"><h1>Cusines</h1></div>\n\t</div>\n\n\t<div (click)=\"intoitem(item.foption)\" class=\"row\" *ngFor=\"let item of operations\" style=\"margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;\">\n\t\t<div class=\"col-sm-12\"><h3>{{item.foption}}</h3></div>\n\t</div>\n\n\t\n\n</div>\n\n<div id=\"futhermore\" [hidden]=\"!boptions\">\n\t<button (click)=\"outtofront(boption)\">back</button>\n\t<div class=\"row\" *ngIf=\"boptions\">\n\t\t<div class=\"col-sm-12\"><h1>{{boption}}</h1></div>\n\t</div>\n\n\t<div class=\"row\" *ngIf=\"boptions\"  style=\"margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;\">\n\t\t<div class=\"col-sm-12\"><h3>Further Options</h3></div>\n\t</div>\n</div>\n\n\n<div id=\"orders\" [hidden]=\"!mine\">\n\t\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12\"><h1>Your Orders</h1></div>\n\t</div>\n\n\t<div class=\"row\"  *ngFor=\"let item of order\" style=\"margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;\">\n\t\t<div class=\"col-sm-12\"><h3>{{item.count}}.{{item.orders}}</h3></div>\n\t</div>\n\n\t<!-- <div class=\"row\"  style=\"margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;\">\n\t\t<div class=\"col-sm-12\"><h3>Order 2</h3></div>\n\t</div> -->\n\n\n\t<!-- <div *ngFor=\"let item of order\">\n\t\t<h2 class=\"page-header\">order.{{item.count}}</h2>\n\t\t<ul class=\"list-group\">\n\t\t\t<li class=\"list-group-item\">count: {{item.count}}</li>\n\t\t\t<li class=\"list-group-item\">orders: {{item.orders}}</li>\n\t\t</ul>\n\t</div>\n -->\n</div>\n"
 
 /***/ }),
 
@@ -190,6 +190,8 @@ module.exports = "<h2 class=\"page-header\">Dashboard</h2>\n<p>Welcome</p>"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DashboardComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__("../../../../../src/app/services/auth.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -200,10 +202,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var DashboardComponent = (function () {
-    function DashboardComponent() {
+    function DashboardComponent(authService, router) {
+        this.authService = authService;
+        this.router = router;
+        this.mine = false;
+        this.ops = true;
+        this.boptions = false;
     }
     DashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.authService.getOrders().subscribe(function (data) {
+            console.log(data);
+            _this.order = data;
+        }, function (err) { console.log(err); return false; });
+        this.authService.getOptions().subscribe(function (data) {
+            console.log(data);
+            _this.operations = data;
+        }, function (err) { console.log(err); return false; });
+    };
+    DashboardComponent.prototype.showops = function () {
+        this.mine = !this.mine;
+        this.ops = !this.ops;
+    };
+    DashboardComponent.prototype.showmine = function () {
+        this.ops = !this.ops;
+        this.mine = !this.mine;
+    };
+    DashboardComponent.prototype.intoitem = function (boption) {
+        this.boption = boption;
+        this.boptions = true;
+        this.ops = false;
+        this.mine = false;
+    };
+    DashboardComponent.prototype.outtofront = function (boption) {
+        this.boption = boption;
+        this.boptions = false;
+        this.ops = true;
+        this.mine = false;
     };
     return DashboardComponent;
 }());
@@ -213,9 +251,10 @@ DashboardComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/dashboard/dashboard.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/dashboard/dashboard.component.css")]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _b || Object])
 ], DashboardComponent);
 
+var _a, _b;
 //# sourceMappingURL=dashboard.component.js.map
 
 /***/ }),
@@ -552,7 +591,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<!-- <div id=\"container_demo\" > -->\n\t<!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->\n\t<!-- <a class=\"hiddenanchor\" id=\"toregister\"></a>\n\t<a class=\"hiddenanchor\" id=\"tologin\"></a>\n\t<div id=\"wrapper\">\n\t\t<div class=\"row\">\n\t\t\t\n\t\t\t<div class=\"col-sm-4\"></div>\n\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t<div id=\"register\" class=\"animate form\">\n\t\t\t\t\t<form  (submit)=\"onRegisterSubmit()\" autocomplete=\"on\"> \n\t\t\t\t\t\t<h1> Sign up </h1> \n\t\t\t\t\t\t<p> \n\t\t\t\t\t\t\t<label for=\"usernamesignup\" class=\"name\" data-icon=\"u\">Name</label>\n\t\t\t\t\t\t\t<input id=\"namesignup\" [(ngModel)]=\"name\" style=\"float:right;\" name=\"username\" required=\"required\" type=\"text\" placeholder=\"name\" />\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<p> \n\t\t\t\t\t\t\t<label for=\"usernamesignup\" class=\"uname\" data-icon=\"u\">Your username</label>\n\t\t\t\t\t\t\t<input id=\"usernamesignup\" [(ngModel)]=\"username\" style=\"float:right;\" name=\"username\" required=\"required\" type=\"text\" placeholder=\"username\" />\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<p> \n\t\t\t\t\t\t\t<label for=\"emailsignup\" class=\"youmail\" data-icon=\"e\" > Your email</label>\n\t\t\t\t\t\t\t<input id=\"emailsignup\" [(ngModel)]=\"email\" style=\"float:right;\"  name=\"email\" required=\"required\" type=\"email\" placeholder=\"mail@domain.com\"/> \n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<p> \n\t\t\t\t\t\t\t<label for=\"passwordsignup\" class=\"youpasswd\" data-icon=\"p\">Your password </label>\n\t\t\t\t\t\t\t<input id=\"passwordsignup\" [(ngModel)]=\"password\" style=\"float:right;\"  name=\"password\" required=\"required\" type=\"password\" placeholder=\"password\"/>\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<p> \n\t\t\t\t\t\t\t<label for=\"passwordsignup_confirm\" class=\"youpasswd\" data-icon=\"p\">Please confirm your password </label>\n\t\t\t\t\t\t\t<input id=\"passwordsignup_confirm\" [(ngModel)]=\"password1\" style=\"float:right;\"  name=\"passwordsignup_confirm\" required=\"required\" type=\"password\" placeholder=\"confirm password\"/>\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-sm-4\"></div>\n\t\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t\t\t<p class=\"signin button\" > \n\t\t\t\t\t\t\t\t\t\t<input type=\"submit\" value=\"Sign up\"/> \n\t\t\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-4\"></div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<p class=\"change_link\">  \n\t\t\t\t\t\t\tAlready a member ?\n\t\t\t\t\t\t\t<a [routerLink]=\"['/login']\" class=\"to_register\"> Go and log in </a>\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\n\t\t\t\t\t</form>\n\t\t\t\t</div>\n\n\n\n\t\t\t</div>\n\t\t\t<div class=\"col-sm-4\"></div>\n\n\t\t</div>\n\t</div>\n</div>  -->\n\n<div class=\"container\">\n        <div class=\"row centered-form\">\n        <div class=\"col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4\">\n        \t<div class=\"panel panel-default\">\n        \t\t<div class=\"panel-heading\" style=\"background-color: #f4760d\">\n\t\t\t    \t\t<h3 class=\"panel-title\" style=\"text-align: center; background-color: #f4760d\">Registration</h3>\n\t\t\t \t\t\t</div>\n\t\t\t \t\t\t<div class=\"panel-body\" style=\"text-align: center; padding: 40px 20px 40px 20px;\">\n\t\t\t \t\t\t\t<form role=\"form\" (submit)=\"onRegisterSubmit()\">\n\t\t\t \t\t\t\t<div class=\"form-group\">\n\t\t\t    \t\t\t\t<input type=\"text\" name=\"name\" id=\"name\" class=\"form-control input-sm\" placeholder=\"name\" [(ngModel)]=\"name\" >\n\t\t\t    \t\t\t</div>\n\n\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t    \t\t\t\t<input type=\"text\" name=\"username\" id=\"username\" class=\"form-control input-sm\" placeholder=\"username\" [(ngModel)]=\"username\" >\n\t\t\t    \t\t\t</div>\n\n\t\t\t    \t\t<div class=\"form-group\">\n\t\t\t    \t\t\t\t<input type=\"email\" name=\"email\" id=\"email\" class=\"form-control input-sm\" placeholder=\"email\" [(ngModel)]=\"email\" >\n\t\t\t    \t\t\t</div>\n\n\t\t\t    \t\t\n\t\t\t    \t\t\t<div class=\"row\">\n\t\t\t    \t\t\t\t<div class=\"col-xs-6 col-sm-6 col-md-6\">\n\t\t\t    \t\t\t\t\t<div class=\"form-group\">\n\t\t\t                <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" id=\"password\" class=\"form-control input-sm\" placeholder=\"password\">\n\t\t\t    \t\t\t\t\t</div>\n\t\t\t    \t\t\t\t</div>\n\t\t\t    \t\t\t\t<div class=\"col-xs-6 col-sm-6 col-md-6\">\n\t\t\t    \t\t\t\t\t<div class=\"form-group\">\n\t\t\t    \t\t\t\t\t\t<input type=\"password\" [(ngModel)]=\"password1\" name=\"password1\" id=\"password1\" class=\"form-control input-sm\" placeholder=\"confirm password\">\n\t\t\t    \t\t\t\t\t</div>\n\t\t\t    \t\t\t\t</div>\n\t\t\t    \t\t\t</div>\n\n\t\t\t    \t\t\t\n\n\t    \t\t\t    <input type=\"submit\" value=\"Register\" class=\"btn btn-info btn-block\">\n\t\t\t    \t\t\n\t\t\t    \t\t</form>\n\t\t\t    \t</div>\n\t    \t\t</div>\n    \t\t</div>\n    \t</div>\n    \t<!-- <ngx-qrcode \n        qrc-element-type=\"http://localhost:4200/Register\" \n        [qrc-value] = \"value\"\n        qrc-version = \"5\">\n        </ngx-qrcode> -->\n    </div>"
+module.exports = "\n<!-- <div id=\"container_demo\" > -->\n\t<!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->\n\t<!-- <a class=\"hiddenanchor\" id=\"toregister\"></a>\n\t<a class=\"hiddenanchor\" id=\"tologin\"></a>\n\t<div id=\"wrapper\">\n\t\t<div class=\"row\">\n\t\t\t\n\t\t\t<div class=\"col-sm-4\"></div>\n\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t<div id=\"register\" class=\"animate form\">\n\t\t\t\t\t<form  (submit)=\"onRegisterSubmit()\" autocomplete=\"on\"> \n\t\t\t\t\t\t<h1> Sign up </h1> \n\t\t\t\t\t\t<p> \n\t\t\t\t\t\t\t<label for=\"usernamesignup\" class=\"name\" data-icon=\"u\">Name</label>\n\t\t\t\t\t\t\t<input id=\"namesignup\" [(ngModel)]=\"name\" style=\"float:right;\" name=\"username\" required=\"required\" type=\"text\" placeholder=\"name\" />\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<p> \n\t\t\t\t\t\t\t<label for=\"usernamesignup\" class=\"uname\" data-icon=\"u\">Your username</label>\n\t\t\t\t\t\t\t<input id=\"usernamesignup\" [(ngModel)]=\"username\" style=\"float:right;\" name=\"username\" required=\"required\" type=\"text\" placeholder=\"username\" />\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<p> \n\t\t\t\t\t\t\t<label for=\"emailsignup\" class=\"youmail\" data-icon=\"e\" > Your email</label>\n\t\t\t\t\t\t\t<input id=\"emailsignup\" [(ngModel)]=\"email\" style=\"float:right;\"  name=\"email\" required=\"required\" type=\"email\" placeholder=\"mail@domain.com\"/> \n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<p> \n\t\t\t\t\t\t\t<label for=\"passwordsignup\" class=\"youpasswd\" data-icon=\"p\">Your password </label>\n\t\t\t\t\t\t\t<input id=\"passwordsignup\" [(ngModel)]=\"password\" style=\"float:right;\"  name=\"password\" required=\"required\" type=\"password\" placeholder=\"password\"/>\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<p> \n\t\t\t\t\t\t\t<label for=\"passwordsignup_confirm\" class=\"youpasswd\" data-icon=\"p\">Please confirm your password </label>\n\t\t\t\t\t\t\t<input id=\"passwordsignup_confirm\" [(ngModel)]=\"password1\" style=\"float:right;\"  name=\"passwordsignup_confirm\" required=\"required\" type=\"password\" placeholder=\"confirm password\"/>\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-sm-4\"></div>\n\t\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t\t\t<p class=\"signin button\" > \n\t\t\t\t\t\t\t\t\t\t<input type=\"submit\" value=\"Sign up\"/> \n\t\t\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-4\"></div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<p class=\"change_link\">  \n\t\t\t\t\t\t\tAlready a member ?\n\t\t\t\t\t\t\t<a [routerLink]=\"['/login']\" class=\"to_register\"> Go and log in </a>\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\n\t\t\t\t\t</form>\n\t\t\t\t</div>\n\n\n\n\t\t\t</div>\n\t\t\t<div class=\"col-sm-4\"></div>\n\n\t\t</div>\n\t</div>\n</div>  -->\n\n<div class=\"container\">\n        <div class=\"row centered-form\">\n        <div class=\"col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4\">\n        \t<div class=\"panel panel-default\">\n        \t\t<div class=\"panel-heading\" style=\"background-color: #f4760d\">\n\t\t\t    \t\t<h3 class=\"panel-title\" style=\"text-align: center; background-color: #f4760d\">Registration</h3>\n\t\t\t \t\t\t</div>\n\t\t\t \t\t\t<div class=\"panel-body\" style=\"text-align: center; padding: 40px 20px 40px 20px;\">\n\t\t\t \t\t\t\t<form role=\"form\" (submit)=\"onRegisterSubmit()\">\n\t\t\t \t\t\t\t<div class=\"form-group\">\n\t\t\t    \t\t\t\t<input type=\"text\" name=\"name\" id=\"name\" class=\"form-control input-sm\" placeholder=\"name\" [(ngModel)]=\"name\" >\n\t\t\t    \t\t\t</div>\n\n\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t    \t\t\t\t<input type=\"text\" name=\"username\" id=\"username\" class=\"form-control input-sm\" placeholder=\"username\" [(ngModel)]=\"username\" >\n\t\t\t    \t\t\t</div>\n\n\t\t\t    \t\t<div class=\"form-group\">\n\t\t\t    \t\t\t\t<input type=\"email\" name=\"email\" id=\"email\" class=\"form-control input-sm\" placeholder=\"email\" [(ngModel)]=\"email\" >\n\t\t\t    \t\t\t</div>\n\n\t\t\t    \t\t\t<div class=\"form-group\">\n\t\t\t    \t\t\t\t<input type=\"number\" name=\"email\" id=\"email\" class=\"form-control input-sm\" placeholder=\"Phone No\" [(ngModel)]=\"PhoneNo\" >\n\t\t\t    \t\t\t</div>\n\n\t\t\t    \t\t\t<div class=\"form-group\">\n\t\t\t    \t\t\t\t<input type=\"text\" name=\"RegistrationNo\" id=\"email\" class=\"form-control input-sm\" placeholder=\"Registration No\" [(ngModel)]=\"RegistrationNo\" >\n\t\t\t    \t\t\t</div>\n\n\t\t\t    \t\t\t<div class=\"form-group\">\n\t\t\t    \t\t\t\t<input type=\"text\" name=\"RoomNo\" id=\"email\" class=\"form-control input-sm\" placeholder=\"Room No\" [(ngModel)]=\"RoomNo\" >\n\t\t\t    \t\t\t</div>\n\n\t\t\t    \t\t\n\t\t\t    \t\t\t<div class=\"row\">\n\t\t\t    \t\t\t\t<div class=\"col-xs-6 col-sm-6 col-md-6\">\n\t\t\t    \t\t\t\t\t<div class=\"form-group\">\n\t\t\t                <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" id=\"password\" class=\"form-control input-sm\" placeholder=\"password\">\n\t\t\t    \t\t\t\t\t</div>\n\t\t\t    \t\t\t\t</div>\n\t\t\t    \t\t\t\t<div class=\"col-xs-6 col-sm-6 col-md-6\">\n\t\t\t    \t\t\t\t\t<div class=\"form-group\">\n\t\t\t    \t\t\t\t\t\t<input type=\"password\" [(ngModel)]=\"password1\" name=\"password1\" id=\"password1\" class=\"form-control input-sm\" placeholder=\"confirm password\">\n\t\t\t    \t\t\t\t\t</div>\n\t\t\t    \t\t\t\t</div>\n\t\t\t    \t\t\t</div>\n\n\t\t\t    \t\t\t\n\n\t    \t\t\t    <input type=\"submit\" value=\"Register\" class=\"btn btn-info btn-block\">\n\t\t\t    \t\t\n\t\t\t    \t\t</form>\n\t\t\t    \t</div>\n\t    \t\t</div>\n    \t\t</div>\n    \t</div>\n    \t<!-- <ngx-qrcode \n        qrc-element-type=\"http://localhost:4200/Register\" \n        [qrc-value] = \"value\"\n        qrc-version = \"5\">\n        </ngx-qrcode> -->\n    </div>"
 
 /***/ }),
 
@@ -600,7 +639,10 @@ var RegisterComponent = (function () {
                 name: this.name,
                 username: this.username,
                 password: this.password,
-                email: this.email
+                email: this.email,
+                PhoneNo: this.PhoneNo,
+                RegistrationNo: this.RegistrationNo,
+                RoomNo: this.RoomNo
             };
             // required fields
             if (!this.validateService.validateRegister(user)) {
@@ -725,6 +767,7 @@ var AuthService = (function () {
     AuthService.prototype.registerUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"];
         headers.append('Content-Type', 'application/json');
+        // return this.http.post('users/register',user,{headers: headers})
         return this.http.post('users/register', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -740,6 +783,22 @@ var AuthService = (function () {
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', this.authToken);
         return this.http.get('users/profile', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.getOrders = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"];
+        this.loadToken();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authToken);
+        return this.http.get('users/getorders', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.getOptions = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"];
+        this.loadToken();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authToken);
+        return this.http.get('users/getoptions', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.storeUserData = function (token, user) {

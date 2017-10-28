@@ -67,5 +67,6 @@ app.get('*',(req,res)=>{
 
 // listening to server
 app.listen(process.env.PORT || 8080,()=>{
+// app.listen(port,()=>{
 	console.log("Server started on port:"+port);
 })
