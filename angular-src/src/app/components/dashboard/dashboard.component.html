@@ -4,11 +4,14 @@
 <div id="operations" [hidden]="!ops">
 	
 	<div class="row">
-		<div class="col-sm-12"><h1>Cusines</h1></div>
+		<div class="col-sm-12"><h1>Options</h1></div>
 	</div>
 
-	<div (click)="intoitem(item.foption)" class="row" *ngFor="let item of operations" style="margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;">
-		<div class="col-sm-12"><h3>{{item.foption}}</h3></div>
+	<div class="row" style="align-items: center">
+		<div class="col-sm-3"  *ngFor="let item of operations" (click)="intoitem(item.foption)"  style="margin-top: 10px; color: inherit; background-color: rgba(117, 123, 124, 0.3); border-radius: 6px; margin-right: 30px;    width: 200px; height: 200px;">
+			<h3 align="center">{{item.foption}}</h3>
+			<img style="padding: 35px; width: 150px; height: 150px;" src="{{item.imgurl}}">
+		</div> 
 	</div>
 
 	
@@ -18,13 +21,109 @@
 <div id="futhermore" [hidden]="!boptions">
 	<button (click)="outtofront(boption)">back</button>
 	<div class="row" *ngIf="boptions">
-		<div class="col-sm-12"><h1>{{boption}}</h1></div>
+		<div class="col-sm-12"><h1>{{boption}}<div style="float: right;"><button (click) ="visAddNewDivfn(boption)">{{visbtnvalue}}</button></div></h1></div>
 	</div>
 
-	<div class="row" *ngIf="boptions"  style="margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;">
-		<div class="col-sm-12"><h3>Further Options</h3></div>
+	<div class="row" *ngIf="boption=='Guests'" >
+		<div [hidden]="!visAddNewDiv" class="col-sm-12"  style="margin-top: 10px; color: inherit; background-color: rgba(117, 123, 124, 0.3);  border-radius: 6px; font-size: 20px; "  *ngFor="let item of users"><h3>Email:{{item.email}}&nbsp;&nbsp;&nbsp;&nbsp;Username:{{item.username}}&nbsp;&nbsp;&nbsp;&nbsp;PhoneNo:{{item.PhoneNo}}&nbsp;&nbsp;&nbsp;&nbsp;RegistrationNo:{{item.RegistrationNo}}&nbsp;&nbsp;&nbsp;&nbsp;RoomNo:{{item.RoomNo}}</h3></div>
+		<div [hidden]="visAddNewDiv">
+			Registration process
+
+
+			<div class="container">
+	        <div class="row centered-form">
+	        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+	        	<div class="panel panel-default">
+	        		<div class="panel-heading" style="background-color: #f4760d">
+				    		<h3 class="panel-title" style="text-align: center; background-color: #f4760d">Registration</h3>
+				 			</div>
+				 			<div class="panel-body" style="text-align: center; padding: 40px 20px 40px 20px;">
+				 				<form role="form" (submit)="onRegisterSubmit()">
+				 				<div class="form-group">
+				    				<input type="text" name="name" id="name" class="form-control input-sm" placeholder="name" [(ngModel)]="name" >
+				    			</div>
+
+							<div class="form-group">
+				    				<input type="text" name="username" id="username" class="form-control input-sm" placeholder="username" [(ngModel)]="username" >
+				    			</div>
+
+				    		<div class="form-group">
+				    				<input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" [(ngModel)]="email" >
+				    			</div>
+
+				    			<div class="form-group">
+				    				<input type="number" name="email" id="email" class="form-control input-sm" placeholder="Phone No" [(ngModel)]="PhoneNo" >
+				    			</div>
+
+				    			<div class="form-group">
+				    				<input type="text" name="RegistrationNo" id="email" class="form-control input-sm" placeholder="Registration No" [(ngModel)]="RegistrationNo" >
+				    			</div>
+
+				    			<div class="form-group">
+				    				<input type="text" name="RoomNo" id="email" class="form-control input-sm" placeholder="Room No" [(ngModel)]="RoomNo" >
+				    			</div>
+
+				    		
+				    			<div class="row">
+				    				<div class="col-xs-6 col-sm-6 col-md-6">
+				    					<div class="form-group">
+				                <input type="password" [(ngModel)]="password" name="password" id="password" class="form-control input-sm" placeholder="password">
+				    					</div>
+				    				</div>
+				    				<div class="col-xs-6 col-sm-6 col-md-6">
+				    					<div class="form-group">
+				    						<input type="password" [(ngModel)]="password1" name="password1" id="password1" class="form-control input-sm" placeholder="confirm password">
+				    					</div>
+				    				</div>
+				    			</div>
+
+				    			
+
+		    			    <input type="submit" value="Register" class="btn btn-info btn-block">
+				    		
+				    		</form>
+				    	</div>
+		    		</div>
+	    		</div>
+	    	</div>
+	    	<!-- <ngx-qrcode 
+	        qrc-element-type="http://localhost:4200/Register" 
+	        [qrc-value] = "value"
+	        qrc-version = "5">
+	        </ngx-qrcode> -->
+	    </div>
+
 	</div>
-</div>
+
+
+
+		</div>
+	</div>
+	<div class="row" *ngIf="boption=='Menu'" >
+<!-- {{boption}} -->
+		<div [hidden]="!visAddNewDiv" class="col-sm-12"  style="margin-top: 10px; color: inherit; background-color: rgba(117, 123, 124, 0.3);  border-radius: 6px; font-size: 20px; "  *ngFor="let item of menus"><h3>Cuisine:{{item.cuisine}}&nbsp;&nbsp;&nbsp;&nbsp;type:{{item.FoodType}}&nbsp;&nbsp;&nbsp;&nbsp;ItemName:{{item.ItemName}}&nbsp;&nbsp;&nbsp;&nbsp;ItemPrice:{{item.ItemPrice}}</h3></div>
+
+
+		<div class="row" [hidden]="visAddNewDiv">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8">
+				<label name="cuisine">cuisine:</label>
+				<input type="text" class="form-control" [(ngModel)]="RoomMenu.cuisine" placeholder="cuisine" name="cuisine">
+				<label name="FoodType">FoodType:</label>
+				<input type="text" class="form-control" [(ngModel)]="RoomMenu.FoodType" placeholder="FoodType" name="FoodType">
+				<label name="ItemName">ItemName:</label>
+				<input type="text" class="form-control" [(ngModel)]="RoomMenu.ItemName" placeholder="ItemName" name="ItemName">
+				<label name="ItemPrice">ItemPrice:</label>
+				<input type="number" class="form-control" [(ngModel)]="RoomMenu.ItemPrice" placeholder="ItemPrice" name="ItemPrice">
+				<br>
+				<button class="form-control" (click)="AddMenuItem()">Add</button>
+				<br>
+				<button class="form-control" (click)="ClearMenuItem()">Clear</button>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+
+	</div>
 
 
 <div id="orders" [hidden]="!mine">
@@ -33,7 +132,7 @@
 		<div class="col-sm-12"><h1>Your Orders</h1></div>
 	</div>
 
-	<div class="row"  *ngFor="let item of order" style="margin-top: 10px; color: inherit; background-color: #073642; border-radius: 6px;">
+	<div class="row"  *ngFor="let item of order" style="margin-top: 10px; color: inherit; background-color: rgba(117, 123, 124, 0.3); border-radius: 6px; margin-right: 30px;">
 		<div class="col-sm-12"><h3>{{item.count}}.{{item.orders}}</h3></div>
 	</div>
 

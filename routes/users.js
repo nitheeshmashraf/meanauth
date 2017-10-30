@@ -8,6 +8,8 @@ const config = require('../config/database');
 const User = require('../models/user');
 const Order = require('../models/order');
 const Option = require('../models/option');
+const Menu = require('../models/menu');
+// const users = [];
 
 // routers
 router.post('/register',(req,res,next)=>{
@@ -50,6 +52,28 @@ router.post('/addorder',(req,res,next)=>{
     }
   })
 });
+
+
+router.post('/addmenuitem',(req,res,next)=>{
+  let newMenuItem= new Menu({
+    cuisine: req.body.cuisine,
+    FoodType: req.body.FoodType,
+    ItemName: req.body.ItemName,
+    ItemPrice: req.body.ItemPrice
+  });
+  // console.log(this.newOrder.count);
+  console.log("its here in post" +newMenuItem);
+
+  Menu.addmenuitem(newMenuItem,(err, menu)=>{
+    if(err){
+      res.json({success:false, msg:'Failed to add menu '+newMenuItem.ItemName});
+    }else{
+      res.json({success:true, msg:'Menu Added'});
+    }
+  })
+});
+
+
 
 // auth
 router.post('/authenticate',(req,res,next)=>{
@@ -100,6 +124,23 @@ router.get('/getorders',  (req, res, next) => {
 
   });
 });
+
+router.get('/getusers',  (req, res, next) => {
+  User.getUsers((err, user)=>{
+    // return res.json({success: true, msg: 'orders'});
+    return res.json(user);
+
+  });
+});
+
+router.get('/getmenus',  (req, res, next) => {
+  Menu.getMenus((err, menu)=>{
+    // return res.json({success: true, msg: 'orders'});
+    return res.json(menu);
+
+  });
+});
+
 
 router.get('/getoptions',  (req, res, next) => {
   Option.getOptions((err, order)=>{

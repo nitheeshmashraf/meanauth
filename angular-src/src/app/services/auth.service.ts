@@ -7,6 +7,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 export class AuthService {
 	authToken:any;
 	user: any;
+  MenuItem:any;
   // token =localStorage.getItem('id_token');
   
 
@@ -16,14 +17,22 @@ export class AuthService {
   		let headers = new Headers;
   		headers.append('Content-Type','application/json');
       // return this.http.post('users/register',user,{headers: headers})
-  		return this.http.post('users/register',user,{headers: headers})
+  		return this.http.post('http://localhost:3000/users/register',user,{headers: headers})
   		.map(res => res.json());
   	}
+
+    AddMenuItem(MenuItem){
+      let headers = new Headers;
+      headers.append('Content-Type','application/json');
+      // return this.http.post('users/register',user,{headers: headers})
+      return this.http.post('http://localhost:3000/users/addmenuitem',MenuItem,{headers: headers})
+      .map(res => res.json());
+    }
 
   authenticateUser(user){
   		let headers = new Headers;
   		headers.append('Content-Type','application/json');
-  		return this.http.post('users/authenticate',user,{headers: headers})
+  		return this.http.post('http://localhost:3000/users/authenticate',user,{headers: headers})
   		.map(res => res.json());
 	}
 
@@ -32,7 +41,7 @@ export class AuthService {
       this.loadToken();
       headers.append('Content-Type','application/json');
       headers.append('Authorization',this.authToken);
-      return this.http.get('users/profile',{headers: headers})
+      return this.http.get('http://localhost:3000/users/profile',{headers: headers})
       .map(res => res.json());
   }
 
@@ -41,7 +50,16 @@ export class AuthService {
       this.loadToken();
       headers.append('Content-Type','application/json');
       headers.append('Authorization',this.authToken);
-      return this.http.get('users/getorders',{headers: headers})
+      return this.http.get('http://localhost:3000/users/getorders',{headers: headers})
+      .map(res => res.json());
+  }
+
+  getUsers(){
+      let headers = new Headers;
+      this.loadToken();
+      headers.append('Content-Type','application/json');
+      headers.append('Authorization',this.authToken);
+      return this.http.get('http://localhost:3000/users/getusers',{headers: headers})
       .map(res => res.json());
   }
 
@@ -50,7 +68,16 @@ export class AuthService {
       this.loadToken();
       headers.append('Content-Type','application/json');
       headers.append('Authorization',this.authToken);
-      return this.http.get('users/getoptions',{headers: headers})
+      return this.http.get('http://localhost:3000/users/getoptions',{headers: headers})
+      .map(res => res.json());
+  }
+
+  getMenus(){
+      let headers = new Headers;
+      this.loadToken();
+      headers.append('Content-Type','application/json');
+      headers.append('Authorization',this.authToken);
+      return this.http.get('http://localhost:3000/users/getmenus',{headers: headers})
       .map(res => res.json());
   }
 
