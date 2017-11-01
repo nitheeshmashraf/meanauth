@@ -126,11 +126,14 @@ export class DashboardComponent implements OnInit {
       price:itemprice,
       status:"ordered"
     }
+    if(this.user.role!='admin'){
+
     this.authService.addOrderedItem(OrderPlaced).subscribe(profile => {
       this.OrderPlaced= profile.UserId
       this.flashMessages.show("Order placed", { cssClass: 'alert-warning' , timeout: 3000 });
     }, err => { console.log(err); return false;});
 
+    }
      this.authService.getPlacedOrders().subscribe(data => {
         console.log(data);
       this.ordersplaced= data
