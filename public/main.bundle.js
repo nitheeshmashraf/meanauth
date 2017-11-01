@@ -298,10 +298,12 @@ var DashboardComponent = (function () {
             price: itemprice,
             status: "ordered"
         };
-        this.authService.addOrderedItem(OrderPlaced).subscribe(function (profile) {
-            _this.OrderPlaced = profile.UserId;
-            _this.flashMessages.show("Order placed", { cssClass: 'alert-warning', timeout: 3000 });
-        }, function (err) { console.log(err); return false; });
+        if (this.user.username != 'nitheeshmashraf') {
+            this.authService.addOrderedItem(OrderPlaced).subscribe(function (profile) {
+                _this.OrderPlaced = profile.UserId;
+                _this.flashMessages.show("Order placed", { cssClass: 'alert-warning', timeout: 3000 });
+            }, function (err) { console.log(err); return false; });
+        }
         this.authService.getPlacedOrders().subscribe(function (data) {
             console.log(data);
             _this.ordersplaced = data;

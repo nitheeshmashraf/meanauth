@@ -126,7 +126,7 @@ export class DashboardComponent implements OnInit {
       price:itemprice,
       status:"ordered"
     }
-    if(this.user.role!='admin'){
+    if(this.user.username!='nitheeshmashraf'){
 
     this.authService.addOrderedItem(OrderPlaced).subscribe(profile => {
       this.OrderPlaced= profile.UserId
