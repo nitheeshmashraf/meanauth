@@ -17,7 +17,7 @@ export class AuthService {
   		let headers = new Headers;
   		headers.append('Content-Type','application/json');
       // return this.http.post('users/register',user,{headers: headers})
-  		return this.http.post('http://localhost:3000/users/register',user,{headers: headers})
+  		return this.http.post('users/register',user,{headers: headers})
   		.map(res => res.json());
   	}
 
@@ -25,23 +25,49 @@ export class AuthService {
       let headers = new Headers;
       headers.append('Content-Type','application/json');
       // return this.http.post('users/register',user,{headers: headers})
-      return this.http.post('http://localhost:3000/users/addmenuitem',MenuItem,{headers: headers})
+      return this.http.post('users/addmenuitem',MenuItem,{headers: headers})
+      .map(res => res.json());
+    }
+
+    addspadeal(SpaDeal){
+      console.log(SpaDeal);
+      let headers = new Headers;
+      headers.append('Content-Type','application/json');
+      // return this.http.post('users/register',user,{headers: headers})
+      return this.http.post('users/addspadeal',SpaDeal,{headers: headers})
       .map(res => res.json());
     }
 
   authenticateUser(user){
   		let headers = new Headers;
   		headers.append('Content-Type','application/json');
-  		return this.http.post('http://localhost:3000/users/authenticate',user,{headers: headers})
+  		return this.http.post('users/authenticate',user,{headers: headers})
   		.map(res => res.json());
 	}
+
+  addOrderedItem(OrderPlaced){
+    let headers = new Headers;
+      headers.append('Content-Type','application/json');
+      // return this.http.post('users/register',user,{headers: headers})
+      return this.http.post('users/addordereditem',OrderPlaced,{headers: headers})
+      .map(res => res.json());
+  }
 
   getProfile(){
       let headers = new Headers;
       this.loadToken();
       headers.append('Content-Type','application/json');
       headers.append('Authorization',this.authToken);
-      return this.http.get('http://localhost:3000/users/profile',{headers: headers})
+      return this.http.get('users/profile',{headers: headers})
+      .map(res => res.json());
+  }
+
+  getUserById(){
+  let headers = new Headers;
+      this.loadToken();
+      headers.append('Content-Type','application/json');
+      headers.append('Authorization',this.authToken);
+      return this.http.get('users/getUserById',{headers: headers})
       .map(res => res.json());
   }
 
@@ -50,7 +76,16 @@ export class AuthService {
       this.loadToken();
       headers.append('Content-Type','application/json');
       headers.append('Authorization',this.authToken);
-      return this.http.get('http://localhost:3000/users/getorders',{headers: headers})
+      return this.http.get('users/getorders',{headers: headers})
+      .map(res => res.json());
+  }
+
+  getPlacedOrders(){
+      let headers = new Headers;
+      this.loadToken();
+      headers.append('Content-Type','application/json');
+      headers.append('Authorization',this.authToken);
+      return this.http.get('users/getPlacedOrders',{headers: headers})
       .map(res => res.json());
   }
 
@@ -59,7 +94,7 @@ export class AuthService {
       this.loadToken();
       headers.append('Content-Type','application/json');
       headers.append('Authorization',this.authToken);
-      return this.http.get('http://localhost:3000/users/getusers',{headers: headers})
+      return this.http.get('users/getusers',{headers: headers})
       .map(res => res.json());
   }
 
@@ -68,7 +103,7 @@ export class AuthService {
       this.loadToken();
       headers.append('Content-Type','application/json');
       headers.append('Authorization',this.authToken);
-      return this.http.get('http://localhost:3000/users/getoptions',{headers: headers})
+      return this.http.get('users/getoptions',{headers: headers})
       .map(res => res.json());
   }
 
@@ -77,10 +112,18 @@ export class AuthService {
       this.loadToken();
       headers.append('Content-Type','application/json');
       headers.append('Authorization',this.authToken);
-      return this.http.get('http://localhost:3000/users/getmenus',{headers: headers})
+      return this.http.get('users/getmenus',{headers: headers})
       .map(res => res.json());
   }
 
+getSpaDeals(){
+      let headers = new Headers;
+      this.loadToken();
+      headers.append('Content-Type','application/json');
+      headers.append('Authorization',this.authToken);
+      return this.http.get('users/getspadeals',{headers: headers})
+      .map(res => res.json());
+  }
   storeUserData(token,user){
   		localStorage.setItem('id_token',token);
   		localStorage.setItem('user', JSON.stringify(user));

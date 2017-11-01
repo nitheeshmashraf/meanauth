@@ -22,7 +22,7 @@ module.exports.getOrders = function(callback){
 }
 
 module.exports.addOrder = function(newOrder, callback){
-  console.log("its here in export"+newOrder);
+  console.log("its here in export to db"+newOrder);
   		
       newOrder.save(callback);
     

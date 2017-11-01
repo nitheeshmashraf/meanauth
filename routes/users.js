@@ -9,6 +9,8 @@ const User = require('../models/user');
 const Order = require('../models/order');
 const Option = require('../models/option');
 const Menu = require('../models/menu');
+const Spa = require('../models/spa');
+const Orderplaced = require('../models/orderplaced');
 // const users = [];
 
 // routers
@@ -74,6 +76,50 @@ router.post('/addmenuitem',(req,res,next)=>{
 });
 
 
+router.post('/addspadeal',(req,res,next)=>{
+  let newspadeal= new Spa({
+    session: req.body.session,
+    duration: req.body.duration,
+    price: req.body.price
+  });
+  console.log(this.newspadeal);
+
+  // console.log(this.newOrder.count);
+  console.log("its here in post" +newspadeal  );
+
+  Spa.addspadeal(newspadeal,(err, spa)=>{
+    if(err){
+      res.json({success:false, msg:'Failed to add Spa Deal '+newspadeal.session});
+    }else{
+      res.json({success:true, msg:'Spa Deal Added'+newspadeal.session});
+    }
+  })
+});
+
+
+router.post('/addordereditem',(req,res,next)=>{
+  let newOrderplaced= new Orderplaced({
+    ItemName: req.body.ItemName,
+    UserName: req.body.UserName,
+    Description: req.body.Description,
+    status: req.body.status,
+    price: req.body.price
+  });
+  console.log(this.newOrderplaced);
+
+  // console.log(this.newOrder.count);
+  console.log("its here in post" +newOrderplaced  );
+
+  Orderplaced.addordereditem(newOrderplaced,(err, newOrderplaced)=>{
+    if(err){
+      res.json({success:false, msg:'Failed to placed order # '+newOrderplaced.ItemId});
+    }else{
+      res.json({success:true, msg:'Order Placed, #'+newOrderplaced.ItemId});
+    }
+  })
+});
+
+
 
 // auth
 router.post('/authenticate',(req,res,next)=>{
@@ -133,6 +179,22 @@ router.get('/getusers',  (req, res, next) => {
   });
 });
 
+router.get('/getUserById',  (req, res, next) => {
+  User.getUserById((err, user)=>{
+    // return res.json({success: true, msg: 'orders'});
+    return res.json(user);
+
+  });
+});
+
+router.get('/getplacedorders',  (req, res, next) => {
+  Orderplaced.getPlacedOrders((err, ordersplaced)=>{
+    // return res.json({success: true, msg: 'orders'});
+    return res.json(ordersplaced);
+
+  });
+});
+
 router.get('/getmenus',  (req, res, next) => {
   Menu.getMenus((err, menu)=>{
     // return res.json({success: true, msg: 'orders'});
@@ -151,6 +213,13 @@ router.get('/getoptions',  (req, res, next) => {
 });
 
 
+router.get('/getspadeals',  (req, res, next) => {
+  Spa.getSpadeals((err, spadeal)=>{
+    // return res.json({success: true, msg: 'orders'});
+    return res.json(spadeal);
+
+  });
+});
 
 
 

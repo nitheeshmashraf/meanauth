@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit {
 	users:any;
   menus:any;
   menu:any;
+  spa:any;
+  spadeals:any;
 	mine:boolean =false;
 	ops:boolean = true;
 	operations:any;
@@ -34,12 +36,27 @@ export class DashboardComponent implements OnInit {
   RoomNo  :string;
   password:string;
   password1:string;
+  ordersplaced:any;
 
   RoomMenu={
     cuisine:'',
     FoodType:'',
     ItemName:'',
     ItemPrice:''
+  }
+
+  spadeal={
+    session:'',
+    duration:'',
+    price:''
+  }
+
+  OrderPlaced={
+    ItemName:'',
+    UserName:'',
+    Description:'',
+    price:'',
+    status:''
   }
 
   elementType : 'url' | 'canvas' | 'img' = 'url';
@@ -50,6 +67,17 @@ export class DashboardComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.spadeal={
+    session:'',
+    duration:'',
+    price:''
+  }
+  this.RoomMenu={
+    cuisine:'',
+    FoodType:'',
+    ItemName:'',
+    ItemPrice:''
+  }
   	this.authService.getOrders().subscribe(data => {
   		console.log(data);
   		this.order= data;
@@ -69,11 +97,59 @@ export class DashboardComponent implements OnInit {
       console.log(data);
       this.menus= data;
     }, err => { console.log(err); return false;});
+      this.authService.getSpaDeals().subscribe(data => {
+      console.log(data);
+      this.spadeals= data;
+    }, err => { console.log(err); return false;});
+      this.authService.getProfile().subscribe(profile => {
+      this.user= profile.user
+    }, err => { console.log(err); return false;});
+      this.authService.getPlacedOrders().subscribe(data => {
+        console.log(data);
+      this.ordersplaced= data
+    }, err => { console.log(err); return false;});
+      if(this.user.role){
+        const AdminUser:boolean=true;
+      }else{
+        const AdminUser:boolean=false;
+
+      }
+  }
+
+  addOrder(itemName,userName,itemprice){
+
+    console.log("username:"+this.user.username);
+    const OrderPlaced={
+      ItemName:itemName,
+      UserName:this.user.username,
+      Description:"Normal",
+      price:itemprice,
+      status:"ordered"
+    }
+    this.authService.addOrderedItem(OrderPlaced).subscribe(profile => {
+      this.OrderPlaced= profile.UserId
+      this.flashMessages.show("Order placed", { cssClass: 'alert-warning' , timeout: 3000 });
+    }, err => { console.log(err); return false;});
+
+     this.authService.getPlacedOrders().subscribe(data => {
+        console.log(data);
+      this.ordersplaced= data
+    }, err => { console.log(err); return false;});
   }
 
   showops(){
   	this.mine=!this.mine;
   	this.ops=!this.ops;
+  }
+
+  menurefresh(){
+    this.ngOnInit();
+    this.RoomMenu={
+    cuisine:'',
+    FoodType:'',
+    ItemName:'',
+    ItemPrice:''
+  }
   }
 
   showmine(){
@@ -118,10 +194,22 @@ export class DashboardComponent implements OnInit {
       console.log(data);
       this.menu= data;
     }, err => { console.log(err); return false;});
-
+    this.menurefresh();
   }
 
+  AddSpaDeal(){
+    console.log(this.spadeal);
+    this.authService.addspadeal(this.spadeal).subscribe(data => {
+      console.log(data);
+      this.spa= data;
+    }, err => { console.log(err); return false;});
+    this.menurefresh();
+  }
+
+
+
   visAddNewDivfn(boption){
+    if(this.user.role=='admin'){
     if(this.boption=='Guests'){
         this.visAddNewDiv=!this.visAddNewDiv;
         if(!this.visAddNewDiv)
@@ -134,6 +222,7 @@ export class DashboardComponent implements OnInit {
         this.visbtnvalue="Show Item";
       else
         this.visbtnvalue="Create Item";
+    }
     }
 
   }
@@ -180,7 +269,8 @@ export class DashboardComponent implements OnInit {
               if(data.success){
                 // alert("Registration successfull");
                 this.flashMessages.show("Registration successfull", { cssClass: 'alert-success' , timeout: 3000 }); 
-                this.router.navigate(['/login']);
+                // this.router.navigate(['/dashboard']);
+        this.visAddNewDiv=!this.visAddNewDiv;
               }else{
                 // alert("Registration unsuccessfull");
                 this.flashMessages.show("Registration unsuccessfull", { cssClass: 'alert-danger' , timeout: 3000 }); 
